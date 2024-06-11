@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.firecash.databinding.ItemProductoBinding
+import com.example.firecash.dataBinding.ItemProductoBinding
 
 class ProductoListAdapter : ListAdapter<Producto, ProductoListAdapter.ProductoViewHolder>(ProductosComparator()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {

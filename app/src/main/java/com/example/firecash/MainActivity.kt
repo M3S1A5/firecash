@@ -3,11 +3,9 @@ package com.example.firecash
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.appventas.databinding.ActivityMainBinding
-
+import com.example.firecash.databinding.ActivityMainBinding
+import java.util.Calendar
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -41,11 +39,21 @@ class MainActivity : AppCompatActivity() {
 
         binding.botonTotalDia.setOnClickListener {
             // Lógica para mostrar el total del día
-            val inicio = // tiempo de inicio del día
-            val fin = // tiempo de fin del día
-                ventaViewModel.obtenerTotalEfectivo(inicio, fin).observe(this) { totalEfectivo ->
-                    // Mostrar total en efectivo
-                }
+            val inicio = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+            }.timeInMillis
+
+            val fin = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 23)
+                set(Calendar.MINUTE, 59)
+                set(Calendar.SECOND, 59)
+            }.timeInMillis
+
+            ventaViewModel.obtenerTotalEfectivo(inicio, fin).observe(this) { totalEfectivo ->
+                // Mostrar total en efectivo
+            }
             ventaViewModel.obtenerTotalTarjeta(inicio, fin).observe(this) { totalTarjeta ->
                 // Mostrar total en tarjeta
             }

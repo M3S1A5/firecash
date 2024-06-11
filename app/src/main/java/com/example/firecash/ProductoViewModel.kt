@@ -1,18 +1,20 @@
 package com.example.firecash
 
-import androidx.lifecycle.*
-import kotlinx.coroutines.launch
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
-class ProductoViewModel(private val repository: ProductoRepository) : ViewModel() {
-    val productos: LiveData<List<Producto>> = repository.productos
+class ProductoViewModel(private val productoRepository: ProductoRepository) : ViewModel() {
+    val productos = productoRepository.getAllProductos()
 
-    fun insertar(producto: Producto) = viewModelScope.launch {
-        repository.insertar(producto)
+    fun insertar(producto: Producto) {
+        productoRepository.insert(producto)
     }
 }
 
-class ProductoViewModelFactory(private val repository: ProductoRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+class ProductoViewModelFactory(
+    private val repository: ProductoRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ProductoViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return ProductoViewModel(repository) as T
