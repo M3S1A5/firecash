@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TotalDiaActivity">
+
+    <!-- Texto para mostrar el total en efectivo -->
+    <TextView
+        android:id="@+id/texto_total_efectivo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total en Efectivo: $" />
+
+    <!-- Texto para mostrar el total con tarjeta -->
+    <TextView
+        android:id="@+id/texto_total_tarjeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total con Tarjeta: $" />
+
+</LinearLayout>

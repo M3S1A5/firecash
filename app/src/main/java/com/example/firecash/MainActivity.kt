@@ -1,62 +1,44 @@
 package com.example.firecash
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.firecash.databinding.ActivityMainBinding
-import java.util.Calendar
+
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-
-    private val productoViewModel: ProductoViewModel by viewModels {
-        ProductoViewModelFactory((application as AppVentasApplication).productoRepository)
-    }
-
-    private val ventaViewModel: VentaViewModel by viewModels {
-        VentaViewModelFactory((application as AppVentasApplication).ventaRepository)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        val recyclerView = binding.recyclerView
-        val adapter = ProductoListAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        // Encontrar los botones en el layout
+        val botonAgregarProducto: Button = findViewById(R.id.boton_agregar_producto)
+        val botonBorrarProducto: Button = findViewById(R.id.boton_borrar_producto)
+        val botonRealizarVenta: Button = findViewById(R.id.boton_realizar_venta)
+        val botonTotalDia: Button = findViewById(R.id.boton_total_dia)
 
-        productoViewModel.productos.observe(this) { productos ->
-            productos?.let { adapter.submitList(it) }
+        // Configurar el listener para el botón de agregar producto
+        botonAgregarProducto.setOnClickListener {
+            val intent = Intent(this, AgregarProductoActivity::class.java)
+            startActivity(intent)
         }
 
-        binding.botonAgregarProducto.setOnClickListener {
-            // Lógica para agregar un nuevo producto
-            val producto = Producto(nombre = "Nuevo Producto", precio = 10.0)
-            productoViewModel.insertar(producto)
+        // Configurar el listener para el botón de borrar producto
+        botonBorrarProducto.setOnClickListener {
+            val intent = Intent(this, BorrarProductoActivity::class.java)
+            startActivity(intent)
         }
 
-        binding.botonTotalDia.setOnClickListener {
-            // Lógica para mostrar el total del día
-            val inicio = Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-            }.timeInMillis
+        // Configurar el listener para el botón de realizar venta
+        botonRealizarVenta.setOnClickListener {
+            val intent = Intent(this, RealizarVentaActivity::class.java)
+            startActivity(intent)
+        }
 
-            val fin = Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, 23)
-                set(Calendar.MINUTE, 59)
-                set(Calendar.SECOND, 59)
-            }.timeInMillis
-
-            ventaViewModel.obtenerTotalEfectivo(inicio, fin).observe(this) { totalEfectivo ->
-                // Mostrar total en efectivo
-            }
-            ventaViewModel.obtenerTotalTarjeta(inicio, fin).observe(this) { totalTarjeta ->
-                // Mostrar total en tarjeta
-            }
+        // Configurar el listener para el botón de total del día
+        botonTotalDia.setOnClickListener {
+            val intent = Intent(this, TotalDiaActivity::class.java)
+            startActivity(intent)
         }
     }
 }

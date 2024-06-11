@@ -1,11 +1,18 @@
 package com.example.firecash
 
 import android.app.Application
+import androidx.room.Room
 
 class AppVentasApplication : Application() {
-    val productoRepository: ProductoRepository
-        get() = // Inicializa el repositorio de productos
+    companion object {
+        var database: AppDatabase? = null
+    }
 
-    val ventaRepository: VentaRepository
-        get() = // Inicializa el repositorio de ventas
+    override fun onCreate() {
+        super.onCreate()
+        database = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "ventas-db"
+        ).build()
+    }
 }

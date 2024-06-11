@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">firecash</string>
+    <string name="logo">Logo de la aplicación</string>
 </resources>

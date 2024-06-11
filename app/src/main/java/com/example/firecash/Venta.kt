@@ -6,8 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "ventas")
 data class Venta(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val productoId: Int,
-    val cantidad: Int,
-    val metodoPago: String, // "Efectivo" o "Tarjeta"
-    val fecha: Long
+    val monto: Double,
+    val metodoPago: String, // "efectivo" o "tarjeta"
+    val fecha: Long // Timestamp para la fecha de la venta
 )
