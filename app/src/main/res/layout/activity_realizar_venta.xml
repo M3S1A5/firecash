@@ -1,19 +1,60 @@
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RealizarVentaActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <Button
-        android:id="@+id/boton_realizar_venta"
-        android:layout_width="wrap_content"
+    <!-- AutoCompleteTextView para ingresar el nombre o código del producto -->
+    <AutoCompleteTextView
+        android:id="@+id/auto_complete_producto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Realizar Venta" />
+        android:hint="Nombre del Producto"
+        android:completionThreshold="1"
+        android:inputType="text" />
 
+    <!-- EditText para ingresar la cantidad -->
+    <EditText
+        android:id="@+id/edit_text_cantidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Cantidad"
+        android:inputType="number"
+        android:maxLength="3"
+        android:maxLines="1" />
+
+    <!-- Botón para agregar al carrito -->
+    <Button
+        android:id="@+id/boton_agregar_producto"
+        style="@style/RedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar al Carrito" />
+
+    <!-- Título o etiqueta para el carrito -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Carrito de Compras"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:gravity="center" />
+
+    <!-- RecyclerView para mostrar el carrito -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_ventas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:scrollbars="vertical" />
+
+    <!-- Botón para pagar -->
+    <Button
+        android:id="@+id/boton_pagar"
+        style="@style/RedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pagar" />
 
 </LinearLayout>

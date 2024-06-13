@@ -19,7 +19,6 @@ class BorrarProductoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_borrar_producto)
 
-        // Encontrar las vistas en el layout
         campoIdProducto = findViewById(R.id.campo_id_producto)
         botonBorrarProducto = findViewById(R.id.boton_borrar_producto)
 
@@ -28,10 +27,9 @@ class BorrarProductoActivity : AppCompatActivity() {
 
             if (id != null) {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    val productoDao = AppVentasApplication.database?.productoDao()
-                    val producto = productoDao?.obtenerProductoPorId(id)
+                    val producto = AppVentasApplication.database.productoDao().obtenerProductoPorId(id)
                     if (producto != null) {
-                        productoDao.borrarProducto(producto)
+                        AppVentasApplication.database.productoDao().borrarProducto(producto)
                         withContext(Dispatchers.Main) {
                             Toast.makeText(this@BorrarProductoActivity, "Producto borrado", Toast.LENGTH_SHORT).show()
                             finish()

@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class ProductoViewModel(private val productoDao: ProductoDao) : ViewModel() {
+class ProductoViewModel(private val productoRoomDao: ProductoRoomDao) : ViewModel() {
 
-    val allProductos: LiveData<List<Producto>> = productoDao.getAllProductos()
+    val allProductos: LiveData<List<Producto>> = productoRoomDao.getAllProductos()
 
     fun insert(producto: Producto) = viewModelScope.launch {
-        productoDao.insert(producto)
+        productoRoomDao.insert(producto)
     }
 }

@@ -2,9 +2,20 @@ package com.example.firecash
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 class VentaViewModel(private val ventaRepository: VentaRepository) : ViewModel() {
+
+    val allVentas: LiveData<List<Venta>> = ventaRepository.allVentas
+
+    fun insertarVenta(venta: Venta) = viewModelScope.launch {
+        ventaRepository.insertarVenta(venta)
+    }
+
+    fun borrarVenta(venta: Venta) = viewModelScope.launch {
+        ventaRepository.borrarVenta(venta)
+    }
 
     fun obtenerTotalEfectivo(inicio: Long, fin: Long): LiveData<Double> {
         return ventaRepository.obtenerTotalEfectivo(inicio, fin)
@@ -12,17 +23,5 @@ class VentaViewModel(private val ventaRepository: VentaRepository) : ViewModel()
 
     fun obtenerTotalTarjeta(inicio: Long, fin: Long): LiveData<Double> {
         return ventaRepository.obtenerTotalTarjeta(inicio, fin)
-    }
-}
-
-class VentaViewModelFactory(
-    private val repository: VentaRepository
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(VentaViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return VentaViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

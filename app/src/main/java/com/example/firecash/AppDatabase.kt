@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 @Database(entities = [Producto::class, Venta::class], version = 1, exportSchema = true)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun productoDao(): ProductoDao
+    abstract fun productoDao(): ProductoRoomDao
     abstract fun ventaDao(): VentaDao
 
     companion object {
@@ -23,6 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "firecash_database"
                 )
+                    .fallbackToDestructiveMigration() // Permite migraciones destructivas para desarrollo
                     .build()
                 INSTANCE = instance
                 instance

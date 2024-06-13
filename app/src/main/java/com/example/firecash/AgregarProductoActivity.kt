@@ -5,7 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -19,7 +19,6 @@ class AgregarProductoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agregar_producto)
 
-        // Encontrar las vistas en el layout
         campoNombreProducto = findViewById(R.id.campo_nombre_producto)
         campoPrecioProducto = findViewById(R.id.campo_precio_producto)
         botonGuardarProducto = findViewById(R.id.boton_guardar_producto)
@@ -30,8 +29,8 @@ class AgregarProductoActivity : AppCompatActivity() {
 
             if (nombre.isNotEmpty() && precio != null) {
                 val producto = Producto(nombre = nombre, precio = precio)
-                CoroutineScope(Dispatchers.IO).launch {
-                    AppVentasApplication.database?.productoDao()?.insertarProducto(producto)
+                lifecycleScope.launch(Dispatchers.IO) {
+                    AppVentasApplication.database.productoDao().insertarProducto(producto)
                 }
                 Toast.makeText(this, "Producto guardado", Toast.LENGTH_SHORT).show()
                 finish()

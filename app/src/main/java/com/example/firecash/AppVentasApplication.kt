@@ -6,14 +6,18 @@ import androidx.room.Room
 class AppVentasApplication : Application() {
 
     companion object {
-        var database: AppDatabase? = null
+        lateinit var database: AppDatabase
+            private set
     }
 
     override fun onCreate() {
         super.onCreate()
         database = Room.databaseBuilder(
             applicationContext,
-            AppDatabase::class.java, "ventas-database"
-        ).build()
+            AppDatabase::class.java,
+            "firecash_database"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }
