@@ -2,39 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp"
-    tools:context=".RealizarVentaActivity">
+    tools:context=".RealizarVentaActivity"
+    android:orientation="vertical">
 
-    <!-- ListView para mostrar los productos -->
-    <ListView
-        android:id="@+id/lista_productos"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <!-- ListView para mostrar el carrito -->
-    <ListView
-        android:id="@+id/lista_carrito"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <!-- Botón para pagar con efectivo -->
     <Button
-        android:id="@+id/boton_pagar_efectivo"
-        style="@style/RedButton"
-        android:layout_width="match_parent"
+        android:id="@+id/boton_realizar_venta"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pagar en Efectivo" />
+        android:text="Realizar Venta" />
 
-    <!-- Botón para pagar con tarjeta -->
-    <Button
-        android:id="@+id/boton_pagar_tarjeta"
-        style="@style/RedButton"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_ventas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pagar con Tarjeta" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

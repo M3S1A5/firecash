@@ -5,7 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,27 +27,24 @@ class BorrarProductoActivity : AppCompatActivity() {
             val id = campoIdProducto.text.toString().toIntOrNull()
 
             if (id != null) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    // Suponiendo que estás dentro del método onCreate de una AppCompatActivity
-
+                lifecycleScope.launch(Dispatchers.IO) {
                     val productoDao = AppVentasApplication.database?.productoDao()
-
-                    productoDao?.obtenerProductos()?.observe(this, { listaDeProductos ->
-                        val producto = listaDeProductos.find { it.id == id }
-                        if (producto != null) {
-                            CoroutineScope(Dispatchers.IO).launch {
-                                productoDao.borrarProducto(producto)
-                            }
+                    val producto = productoDao?.obtenerProductoPorId(id)
+                    if (producto != null) {
+                        productoDao.borrarProducto(producto)
+                        withContext(Dispatchers.Main) {
                             Toast.makeText(this@BorrarProductoActivity, "Producto borrado", Toast.LENGTH_SHORT).show()
                             finish()
-                        } else {
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
                             Toast.makeText(this@BorrarProductoActivity, "Producto no encontrado", Toast.LENGTH_SHORT).show()
                         }
-                    })
-
+                    }
                 }
-                }
+            } else {
+                Toast.makeText(this, "Por favor, introduce un ID válido", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
+}

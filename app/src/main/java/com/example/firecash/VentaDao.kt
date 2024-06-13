@@ -1,17 +1,16 @@
 package com.example.firecash
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
 @Dao
-interface VentaDao {
-    @Insert
-    suspend fun insertarVenta(venta: Venta)
+interface ProductoDao {
+    @Query("SELECT * FROM productos")
+    fun getAllProductos(): LiveData<List<Producto>>
 
-    @Query("SELECT * FROM ventas")
-    suspend fun obtenerVentas(): List<Venta>
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(producto: Producto): Long
 
-    @Query("SELECT SUM(monto) FROM ventas WHERE metodoPago = :metodo")
-    suspend fun totalPorMetodoPago(metodo: String): Double?
+    @Delete
+    suspend fun delete(producto: Producto): Int
 }

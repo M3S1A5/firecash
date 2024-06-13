@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 
 class AppVentasApplication : Application() {
+
     companion object {
         var database: AppDatabase? = null
     }
@@ -12,7 +13,7 @@ class AppVentasApplication : Application() {
         super.onCreate()
         database = Room.databaseBuilder(
             applicationContext,
-            AppDatabase::class.java, "ventas-db"
+            AppDatabase::class.java, "ventas-database"
         ).build()
     }
 }
