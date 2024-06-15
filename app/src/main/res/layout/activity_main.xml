@@ -15,36 +15,33 @@
         android:contentDescription="@string/logo"
         android:src="@drawable/logo" />
 
-    <!-- Botón para agregar productos -->
-    <Button
-        android:id="@+id/boton_agregar_producto"
-        style="@style/RedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Agregar Producto" />
-
-    <!-- Botón para borrar productos -->
-    <Button
-        android:id="@+id/boton_borrar_producto"
-        style="@style/RedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Borrar Producto" />
-
     <!-- Botón para realizar venta -->
     <Button
         android:id="@+id/boton_realizar_venta"
-        style="@style/RedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Realizar Venta" />
+        android:text="Realizar Venta"
+        android:background="@drawable/button_background"
+        android:layout_marginTop="16dp"
+        android:padding="8dp" />
+
+    <!-- Botón para editar los productos  -->
+    <Button
+        android:id="@+id/boton_editar_productos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="editar  Producto"
+        android:background="@drawable/button_background"
+        android:layout_marginTop="16dp"
+        android:padding="8dp" />
 
     <!-- Botón para calcular el total del día -->
     <Button
         android:id="@+id/boton_total_dia"
-        style="@style/RedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Total del Día" />
-
+        android:text="Total del Día"
+        android:background="@drawable/button_background"
+        android:layout_marginTop="16dp"
+        android:padding="8dp" />
 </LinearLayout>

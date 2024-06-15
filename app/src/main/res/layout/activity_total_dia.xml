@@ -1,22 +1,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".TotalDiaActivity">
+    android:padding="16dp">
 
-    <!-- Texto para mostrar el total en efectivo -->
-    <TextView
-        android:id="@+id/texto_total_efectivo"
+    <EditText
+        android:id="@+id/fecha_inicio_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Total en Efectivo: $" />
+        android:hint="Fecha de inicio (yyyy-mm-dd)" />
 
-    <!-- Texto para mostrar el total con tarjeta -->
-    <TextView
-        android:id="@+id/texto_total_tarjeta"
+    <EditText
+        android:id="@+id/fecha_fin_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Total con Tarjeta: $" />
+        android:hint="Fecha de fin (yyyy-mm-dd)" />
+
+    <Button
+        android:id="@+id/boton_calcular_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calcular Total"
+        android:background="@drawable/button_background" />
+
+    <TextView
+        android:id="@+id/resultado_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="18sp" />
 
 </LinearLayout>

@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Botón para agregar producto -->
+    <Button
+        android:id="@+id/boton_agregar_producto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="Añadir producto"
+        android:background="@drawable/button_background" />
+
+    <!-- Recycleview de todos los productos  -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productos_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+</LinearLayout>

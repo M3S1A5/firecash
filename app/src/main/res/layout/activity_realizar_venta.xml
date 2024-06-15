@@ -1,60 +1,49 @@
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- AutoCompleteTextView para ingresar el nombre o código del producto -->
-    <AutoCompleteTextView
-        android:id="@+id/auto_complete_producto"
+    <!-- RecyclerView para mostrar el carrito de compras -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/carrito_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre del Producto"
-        android:completionThreshold="1"
-        android:inputType="text" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/subtotal_text_view"
+        android:layout_marginBottom="8dp" />
 
-    <!-- EditText para ingresar la cantidad -->
-    <EditText
-        android:id="@+id/edit_text_cantidad"
-        android:layout_width="match_parent"
+    <!-- texto  con el subtotal -->
+    <TextView
+        android:id="@+id/subtotal_text_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Cantidad"
-        android:inputType="number"
-        android:maxLength="3"
-        android:maxLines="1" />
+        android:text="Subtotal: 0.00€"
+        android:textSize="18sp"
+        android:layout_above="@id/boton_agregar_producto"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"/>
 
-    <!-- Botón para agregar al carrito -->
+    <!-- Botón para agregar producto -->
     <Button
         android:id="@+id/boton_agregar_producto"
-        style="@style/RedButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar al Carrito" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/boton_realizar_compra"
+        android:background="@drawable/button_background"
+        android:text="Agregar Producto" />
 
-    <!-- Título o etiqueta para el carrito -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Carrito de Compras"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp"
-        android:gravity="center" />
-
-    <!-- RecyclerView para mostrar el carrito -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_ventas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:scrollbars="vertical" />
-
-    <!-- Botón para pagar -->
+    <!-- Botón para realizar la compra -->
     <Button
-        android:id="@+id/boton_pagar"
-        style="@style/RedButton"
-        android:layout_width="match_parent"
+        android:id="@+id/boton_realizar_compra"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pagar" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_background"
+        android:padding="5dp"
+        android:text="Realizar Compra" />
 
-</LinearLayout>
+</RelativeLayout>
+

@@ -1,45 +1,45 @@
 package com.example.firecash
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
-class ProductoAdapter(
-    private val context: Context,
-    private val productos: MutableList<Producto>,
-    private val agregarAlCarrito: (Producto) -> Unit
-) : BaseAdapter() {
+class ProductosAdapter(
+    private val productos: List<Producto>,
+    private val eliminarProductoCallback: (Producto) -> Unit,
+    private val editarProductoCallback: (Producto) -> Unit // Callback para editar producto
+) : RecyclerView.Adapter<ProductosAdapter.ProductoViewHolder>() {
 
-    override fun getCount(): Int = productos.size
+    class ProductoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val nombreTextView: TextView = itemView.findViewById(R.id.nombre_producto)
+        val precioTextView: TextView = itemView.findViewById(R.id.precio_producto)
+        val editarButton: ImageButton = itemView.findViewById(R.id.boton_editar_producto)
+        val eliminarButton: ImageButton = itemView.findViewById(R.id.boton_eliminar_producto)
+    }
 
-    override fun getItem(position: Int): Any = productos[position]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_producto, parent, false)
+        return ProductoViewHolder(itemView)
+    }
 
-    override fun getItemId(position: Int): Long = productos[position].id.toLong()
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_producto, parent, false)
+    override fun onBindViewHolder(holder: ProductoViewHolder, position: Int) {
         val producto = productos[position]
+        holder.nombreTextView.text = producto.nombre
+        holder.precioTextView.text = "Precio: $${producto.precio}"
 
-        val nombreProducto: TextView = view.findViewById(R.id.nombre_producto)
-        val precioProducto: TextView = view.findViewById(R.id.precio_producto)
-
-        nombreProducto.text = producto.nombre
-        precioProducto.text = "$${producto.precio}"
-
-        view.setOnClickListener {
-            agregarAlCarrito(producto)
+        // clic para eliminar producto
+        holder.eliminarButton.setOnClickListener {
+            eliminarProductoCallback(producto)
         }
 
-        return view
+        //clic para editar producto
+        holder.editarButton.setOnClickListener {
+            editarProductoCallback(producto)
+        }
     }
 
-    // Método para actualizar la lista de productos en el adaptador
-    fun actualizarProductos(nuevosProductos: List<Producto>) {
-        productos.clear()
-        productos.addAll(nuevosProductos)
-        notifyDataSetChanged()
-    }
+    override fun getItemCount() = productos.size
 }

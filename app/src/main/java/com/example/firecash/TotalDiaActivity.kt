@@ -1,34 +1,36 @@
 package com.example.firecash
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class TotalDiaActivity : AppCompatActivity() {
 
-    private lateinit var textoTotalEfectivo: TextView
-    private lateinit var textoTotalTarjeta: TextView
+    private lateinit var db: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_total_dia)
 
-        // Encontrar las vistas en el layout
-        textoTotalEfectivo = findViewById(R.id.texto_total_efectivo)
-        textoTotalTarjeta = findViewById(R.id.texto_total_tarjeta)
+        db = DatabaseHelper(this)
 
-        // Calcular el total del día por método de pago
-        CoroutineScope(Dispatchers.IO).launch {
-            val totalEfectivo = AppVentasApplication.database?.ventaDao()?.totalPorMetodoPago("efectivo") ?: 0.0
-            val totalTarjeta = AppVentasApplication.database?.ventaDao()?.totalPorMetodoPago("tarjeta") ?: 0.0
+        val fechaInicioInput: EditText = findViewById(R.id.fecha_inicio_input)
+        val fechaFinInput: EditText = findViewById(R.id.fecha_fin_input)
+        val resultadoTotal: TextView = findViewById(R.id.resultado_total)
+        val botonCalcular: Button = findViewById(R.id.boton_calcular_total)
 
-            runOnUiThread {
-                textoTotalEfectivo.text = "Total en Efectivo: $${totalEfectivo}"
-                textoTotalTarjeta.text = "Total con Tarjeta: $${totalTarjeta}"
-            }
+        botonCalcular.setOnClickListener {
+            val fechaInicio = fechaInicioInput.text.toString()
+            val fechaFin = fechaFinInput.text.toString()
+            val total = calcularTotalVentas(fechaInicio, fechaFin)
+            resultadoTotal.text = "Total de ventas del $fechaInicio al $fechaFin: $total"
         }
+    }
+
+    private fun calcularTotalVentas(fechaInicio: String, fechaFin: String): Double {
+        val ventas = db.obtenerVentasEntreFechas(fechaInicio, fechaFin)
+        return ventas.sumOf { it.total }
     }
 }
