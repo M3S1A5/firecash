@@ -4,24 +4,37 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/fecha_inicio_input"
+    <Button
+        android:id="@+id/fecha_inicio_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de inicio (yyyy-mm-dd)" />
+        android:text="Seleccionar fecha de inicio"
+        android:background="@drawable/button_background"
+        android:layout_margin="5dp"/>
 
-    <EditText
-        android:id="@+id/fecha_fin_input"
+    <Button
+        android:id="@+id/fecha_fin_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de fin (yyyy-mm-dd)" />
+        android:text="Seleccionar fecha de fin"
+        android:background="@drawable/button_background"
+        android:layout_margin="5dp"/>
 
     <Button
         android:id="@+id/boton_calcular_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Calcular Total"
-        android:background="@drawable/button_background" />
+        android:background="@drawable/button_background"
+        android:layout_margin="5dp"/>
+
+    <Button
+        android:id="@+id/boton_volver1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:text="Volver"
+        android:layout_margin="5dp" />
 
     <TextView
         android:id="@+id/resultado_total"

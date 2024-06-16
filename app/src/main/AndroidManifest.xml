@@ -9,6 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".VentasActivity" />
         <activity android:name=".TotalDiaActivity" />
         <activity android:name=".EditarProductosActivity" />
         <activity android:name=".RealizarVentaActivity" />

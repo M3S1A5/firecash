@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="2dp">
 
     <!-- RecyclerView para mostrar el carrito de compras -->
     <androidx.recyclerview.widget.RecyclerView
@@ -10,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/subtotal_text_view"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="5dp" />
 
     <!-- texto  con el subtotal -->
     <TextView
@@ -21,6 +20,7 @@
         android:textSize="18sp"
         android:layout_above="@id/boton_agregar_producto"
         android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
         android:textColor="@android:color/black"/>
 
     <!-- Botón para agregar producto -->
@@ -30,20 +30,33 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/boton_realizar_compra"
+        android:layout_toStartOf="@+id/boton_volver"
         android:background="@drawable/button_background"
-        android:text="Agregar Producto" />
+        android:text="Agregar Producto"
+        android:layout_margin="5dp" />
 
-    <!-- Botón para realizar la compra -->
+    <!-- Botón para volver -->
     <Button
-        android:id="@+id/boton_realizar_compra"
+        android:id="@+id/boton_volver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_background"
+        android:text="Volver"
+        android:layout_margin="5dp" />
+
+    <!-- Botón para realizar la venta -->
+    <Button
+        android:id="@+id/boton_realizar_venta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/boton_volver"
         android:background="@drawable/button_background"
         android:padding="5dp"
-        android:text="Realizar Compra" />
+        android:text="Realizar Compra"
+        android:layout_margin="5dp" />
 
 </RelativeLayout>
-

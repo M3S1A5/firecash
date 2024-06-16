@@ -3,39 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/nombre_producto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:paddingEnd="8dp"
-        android:gravity="start"/>
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/precio_producto"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:paddingEnd="8dp"
-        android:gravity="end"/>
+        android:textAlignment="center"/>
 
     <ImageButton
         android:id="@+id/boton_editar_producto"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.5"
         android:src="@drawable/ic_edit"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="Editar producto"/>
 
     <ImageButton
         android:id="@+id/boton_eliminar_producto"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.5"
         android:src="@drawable/ic_delete"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="Eliminar producto"/>

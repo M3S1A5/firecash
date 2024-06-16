@@ -2,38 +2,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/text_nombre_producto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:text="Nombre del Producto"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"/>
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/text_precio_producto"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Precio: 0.00€"
+        android:layout_weight="1"
+        android:text=" 0.00€"
         android:textSize="18sp"
-        android:textColor="@android:color/black"/>
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/text_cantidad_producto"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Cantidad: 0"
+        android:layout_weight="1"
+        android:text=" 0"
         android:textSize="18sp"
         android:layout_marginStart="8dp"
-        android:textColor="@android:color/black"/>
+        android:gravity="center" />
 
     <ImageButton
         android:id="@+id/boton_editar_producto"
-        android:layout_width="20px"
-        android:layout_height="20px"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
         android:src="@drawable/ic_edit"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="Editar producto"
@@ -42,8 +44,9 @@
 
     <ImageButton
         android:id="@+id/boton_eliminar_producto"
-        android:layout_width="20px"
-        android:layout_height="20px"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
         android:src="@drawable/ic_delete"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="Eliminar producto"

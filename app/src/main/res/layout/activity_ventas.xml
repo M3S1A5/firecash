@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Botón para volver a MainActivity -->
+    <Button
+        android:id="@+id/boton_volver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volver"
+        android:background="@drawable/button_background"
+        android:layout_marginTop="16dp"
+        android:padding="8dp" />
+
+    <!-- RecyclerView para las ventas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ventas_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

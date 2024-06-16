@@ -49,8 +49,11 @@ class RealizarVentaActivity : AppCompatActivity() {
         val botonAgregarProducto: Button = findViewById(R.id.boton_agregar_producto)
         botonAgregarProducto.setOnClickListener { agregarProducto() }
 
-        val botonRealizarCompra: Button = findViewById(R.id.boton_realizar_compra)
-        botonRealizarCompra.setOnClickListener { realizarCompra() }
+        val botonVolver: Button = findViewById(R.id.boton_volver)
+        botonVolver.setOnClickListener { finish() }
+
+        val botonRealizarVenta: Button = findViewById(R.id.boton_realizar_venta)
+        botonRealizarVenta.setOnClickListener { realizarVenta() }
         subtotalTextView = findViewById(R.id.subtotal_text_view)
     }
 
@@ -115,62 +118,73 @@ class RealizarVentaActivity : AppCompatActivity() {
         actualizarSubtotal()
     }
 
-    private fun editarProducto(producto: Producto) {
-        val builder = AlertDialog.Builder(this)
-        val layout = LinearLayout(this)
-        layout.orientation = LinearLayout.VERTICAL
+private fun editarProducto(producto: Producto) {
+    val builder = AlertDialog.Builder(this)
+    val layout = LinearLayout(this)
+    layout.orientation = LinearLayout.VERTICAL
 
-        val nombreInput = EditText(this)
-        nombreInput.hint = "Nuevo nombre"
-        layout.addView(nombreInput)
+    val cantidadTitle = TextView(this)
+    cantidadTitle.text = "Cantidad"
+    layout.addView(cantidadTitle)
 
-        val cantidadInput = EditText(this)
-        cantidadInput.hint = "Nueva cantidad"
-        cantidadInput.inputType = InputType.TYPE_CLASS_NUMBER
-        layout.addView(cantidadInput)
+    val cantidadInput = EditText(this)
+    cantidadInput.hint = "Nueva cantidad"
+    cantidadInput.inputType = InputType.TYPE_CLASS_NUMBER
+    layout.addView(cantidadInput)
 
-        // Prellenar los campos con los valores actuales del producto
-        nombreInput.setText(producto.nombre)
-        cantidadInput.setText(producto.cantidad.toString())
+    // rellenar el campo con la cantidad actual del producto
+    cantidadInput.setText(producto.cantidad.toString())
 
-        builder.setView(layout)
-        builder.setPositiveButton("Guardar") { _, _ ->
-            val nuevoNombre = nombreInput.text.toString()
-            val nuevaCantidad = cantidadInput.text.toString().toInt()
+    builder.setView(layout)
+    builder.setPositiveButton("Guardar") { _, _ ->
+        val nuevaCantidad = cantidadInput.text.toString().toInt()
 
-            // Actualizar el producto en la lista `carrito`
-            val index = carrito.indexOf(producto)
-            if (index != -1) {
-                val productoEditado = Producto(nuevoNombre, nuevaCantidad.toDouble())
-                carrito[index] = productoEditado
-                carritoAdapter.notifyDataSetChanged()
-                actualizarSubtotal()
-            }
+        // Actualizar el producto en la lista `carrito`
+        val index = carrito.indexOf(producto)
+        if (index != -1) {
+            val productoEditado = Producto(producto.nombre, producto.precio, nuevaCantidad) // mantener el nombre y precio originales
+            carrito[index] = productoEditado
+            carritoAdapter.notifyDataSetChanged()
+            actualizarSubtotal()
         }
-        builder.setNegativeButton("Cancelar", null)
-        builder.show()
     }
+    builder.setNegativeButton("Cancelar", null)
+    builder.show()
+}
+
 
     private fun eliminarProducto(producto: Producto) {
-        carrito.remove(producto)
-        carritoAdapter.notifyDataSetChanged()
-        actualizarSubtotal()
-    }
+    AlertDialog.Builder(this)
+        .setTitle("Eliminar producto")
+        .setMessage("¿Estás seguro de que quieres eliminar ${producto.nombre} del carrito?")
+        .setPositiveButton("Sí") { _, _ ->
+            carrito.remove(producto)
+            carritoAdapter.notifyDataSetChanged()
+            actualizarSubtotal()
+        }
+        .setNegativeButton("No", null)
+        .show()
+}
 
-    private fun realizarCompra() {
+    private fun realizarVenta() {
+        if (carrito.isEmpty()) {
+            Toast.makeText(this, "El carrito está vacío.", Toast.LENGTH_LONG).show()
+            return
+        }
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Método de Pago")
         builder.setMessage("Seleccione el método de pago")
         builder.setPositiveButton("Efectivo") { _, _ -> guardarVenta("Efectivo") }
         builder.setNegativeButton("Tarjeta") { _, _ -> guardarVenta("Tarjeta") }
         builder.show()
+
     }
 
-    private fun guardarVenta(metodoPago: String) {
-        val total = carrito.sumOf { it.precio * it.cantidad }
-        val fecha = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+private fun guardarVenta(metodoPago: String) {
+    val total = carrito.sumOf { it.precio * it.cantidad }
+    val fecha = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+    try {
         db.insertarVenta(fecha, metodoPago, total)
-
         // Mostrar un AlertDialog con el total de la venta
         AlertDialog.Builder(this)
             .setTitle("Venta realizada")
@@ -181,7 +195,10 @@ class RealizarVentaActivity : AppCompatActivity() {
         carrito.clear()
         carritoAdapter.notifyDataSetChanged()
         actualizarSubtotal()
+    } catch (e: Exception) {
+        Toast.makeText(this, "Error al guardar venta: ${e.message}", Toast.LENGTH_LONG).show()
     }
+}
 
     // Método para obtener nombres de productos desde la base de datos
     private suspend fun obtenerNombresProductosDesdeBD(): List<String> {

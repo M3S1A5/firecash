@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("kotlin-kapt")
+
 
 }
 
@@ -68,12 +70,19 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.9.0")
     implementation("androidx.activity:activity-compose:1.9.0")
 
+    // Room dependencies
+    implementation("androidx.room:room-runtime:2.3.0")
+    kapt("androidx.room:room-compiler:2.3.0")
+    implementation("androidx.room:room-ktx:2.3.0")
+
+
     // Jetpack Compose dependencies
     implementation("androidx.compose.ui:ui:1.6.8")
     implementation("androidx.compose.material:material:1.6.8")
     implementation("androidx.compose.ui:ui-tooling-preview:1.6.8")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+
 
     // Testing dependencies
     testImplementation("junit:junit:4.13.2")

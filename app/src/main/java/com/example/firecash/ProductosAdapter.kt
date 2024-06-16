@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class ProductosAdapter(
-    private val productos: List<Producto>,
+    private val productos: MutableList<Producto>,
     private val eliminarProductoCallback: (Producto) -> Unit,
     private val editarProductoCallback: (Producto) -> Unit // Callback para editar producto
 ) : RecyclerView.Adapter<ProductosAdapter.ProductoViewHolder>() {
@@ -28,7 +28,7 @@ class ProductosAdapter(
     override fun onBindViewHolder(holder: ProductoViewHolder, position: Int) {
         val producto = productos[position]
         holder.nombreTextView.text = producto.nombre
-        holder.precioTextView.text = "Precio: $${producto.precio}"
+        holder.precioTextView.text = "${producto.precio}€"
 
         // clic para eliminar producto
         holder.eliminarButton.setOnClickListener {
@@ -42,4 +42,10 @@ class ProductosAdapter(
     }
 
     override fun getItemCount() = productos.size
+
+    fun updateProductos(newProductos: List<Producto>) {
+        this.productos.clear()
+        this.productos.addAll(newProductos)
+        notifyDataSetChanged()
+    }
 }

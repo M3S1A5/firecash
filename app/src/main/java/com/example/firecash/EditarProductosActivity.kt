@@ -18,6 +18,7 @@ class EditarProductosActivity : AppCompatActivity() {
     private lateinit var db: DatabaseHelper
     private val productos: MutableList<Producto> = mutableListOf()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_productos)
@@ -36,6 +37,8 @@ class EditarProductosActivity : AppCompatActivity() {
 
             val botonAgregarProducto: Button = findViewById(R.id.boton_agregar_producto)
             botonAgregarProducto.setOnClickListener { agregarProducto() }
+            val botonVolver: Button = findViewById(R.id.boton_volver)
+            botonVolver.setOnClickListener { finish() }
         } catch (e: Exception) {
             Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
         }
@@ -78,29 +81,38 @@ class EditarProductosActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun eliminarProducto(producto: Producto) {
-        try {
-            db.eliminarProducto(producto.nombre)
-            productos.remove(producto)
-            productosAdapter.notifyDataSetChanged()
-        } catch (e: Exception) {
-            Toast.makeText(this, "Error al eliminar producto: ${e.message}", Toast.LENGTH_LONG).show()
+ private fun eliminarProducto(producto: Producto) {
+    AlertDialog.Builder(this)
+        .setTitle("Eliminar producto")
+        .setMessage("Estás a punto de eliminar el producto ${producto.nombre}. ¿Estás seguro?")
+        .setPositiveButton("Aceptar") { _, _ ->
+            try {
+                db.eliminarProducto(producto.nombre)
+                productos.remove(producto)
+                productosAdapter.notifyDataSetChanged()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error al eliminar producto: ${e.message}", Toast.LENGTH_LONG).show()
+            }
         }
-    }
+        .setNegativeButton("Cancelar", null)
+        .show()
+}
 
     private fun editarProducto(producto: Producto) {
         val builder = AlertDialog.Builder(this)
         val layout = LinearLayout(this)
         layout.orientation = LinearLayout.VERTICAL
 
+        // Establecer el nombre actual del producto
         val nombreInput = EditText(this)
         nombreInput.hint = "Nuevo Nombre del Producto"
-        nombreInput.setText(producto.nombre) // Establecer el nombre actual del producto
+        nombreInput.setText(producto.nombre)
         layout.addView(nombreInput)
 
+        // Establecer el precio actual del producto
         val precioInput = EditText(this)
         precioInput.hint = "Nuevo Precio del Producto"
-        precioInput.setText(producto.precio.toString()) // Establecer el precio actual del producto
+        precioInput.setText(producto.precio.toString())
         layout.addView(precioInput)
 
         builder.setView(layout)

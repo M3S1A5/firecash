@@ -44,4 +44,14 @@
         android:background="@drawable/button_background"
         android:layout_marginTop="16dp"
         android:padding="8dp" />
+
+    <!-- Botón para ver las ventas -->
+    <Button
+        android:id="@+id/boton_ver_ventas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver Ventas"
+        android:background="@drawable/button_background"
+        android:layout_marginTop="16dp"
+        android:padding="8dp" />
 </LinearLayout>

@@ -1,23 +1,73 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="5dp">
 
-    <!-- Botón para agregar producto -->
-    <Button
-        android:id="@+id/boton_agregar_producto"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:text="Añadir producto"
-        android:background="@drawable/button_background" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
 
+        <!-- Botón para agregar producto -->
+        <Button
+            android:id="@+id/boton_agregar_producto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:text="Añadir producto"
+            android:padding="3dp"/>
+
+        <!-- Botón para volver -->
+        <Button
+            android:id="@+id/boton_volver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_background"
+            android:text="Volver"
+            android:padding="3dp"/>
+    </LinearLayout>
+
+<!-- Títulos para los elementos del RecyclerView -->
+<LinearLayout
+    android:id="@+id/titles_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/linearLayout"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="Producto"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Precio"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:textAlignment="center" />
+</LinearLayout>
     <!-- Recycleview de todos los productos  -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productos_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titles_layout"
+        android:layout_marginTop="7dp" />
 
-</LinearLayout>
+</RelativeLayout>
